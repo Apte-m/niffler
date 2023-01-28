@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="niffler.test.UserDataApiTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-01-28T16:45:38" hostname="MacBook-Air-Artem-2.local" time="0.26">
+  <properties/>
+  <testcase name="[1] data/userOne.json" classname="niffler.test.UserDataApiTest" time="0.259"/>
+  <testcase name="[2] data/userTwo.json" classname="niffler.test.UserDataApiTest" time="0.26"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
