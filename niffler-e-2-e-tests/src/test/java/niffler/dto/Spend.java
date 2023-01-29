@@ -1,11 +1,12 @@
-package niffler.model;
+package niffler.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import niffler.model.CurrencyValues;
 
 import java.util.Date;
 import java.util.UUID;
 
-public class SpendJson {
+public class Spend {
     @JsonProperty("id")
     private UUID id;
     @JsonProperty("spendDate")
@@ -21,7 +22,7 @@ public class SpendJson {
     @JsonProperty("username")
     private String username;
 
-    public SpendJson() {
+    public Spend() {
     }
 
     public UUID getId() {

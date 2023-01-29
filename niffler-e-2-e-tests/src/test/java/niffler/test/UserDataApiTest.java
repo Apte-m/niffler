@@ -1,9 +1,10 @@
 package niffler.test;
 
+import io.qameta.allure.Allure;
 import niffler.api.NifflerUserDataAssuded;
 import niffler.api.NifflerUserDataClient;
 import niffler.converter.UserData;
-import niffler.model.UserJson;
+import niffler.dto.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -21,14 +22,16 @@ public class UserDataApiTest {
             "data/userTwo.json"
     })
     @ParameterizedTest
-    void userUpdateData(@UserData UserJson userJson) throws Exception {
-        UserJson created = nifflerUserDataClient.updateUser(userJson);
+    void userUpdateData(@UserData User userJson)  {
+        Allure.step("обновление через retrofit", () -> {
+            User created = nifflerUserDataClient.updateUser(userJson);
 
-        Assertions.assertAll(
-                () -> assertNotNull(created.getUserName()),
-                () -> assertNotNull(created.getFirstname()),
-                () -> assertNotNull(created.getCurrency())
-        );
+            Assertions.assertAll(
+                    () -> assertNotNull(created.getUserName()),
+                    () -> assertNotNull(created.getFirstname()),
+                    () -> assertNotNull(created.getCurrency())
+            );
+        });
 
 
     }
@@ -38,16 +41,18 @@ public class UserDataApiTest {
             "data/userTwo.json"
     })
     @ParameterizedTest
-    void userUpdateDataRestAssured(@UserData UserJson userJson) {
-        UserJson created = nifflerUserDataAssuded.updateUserAssured(userJson).as(UserJson.class);
+    void userUpdateDataRestAssured(@UserData User userJson) {
 
-        Assertions.assertAll(
-                () -> assertNotNull(created.getUserName()),
-                () -> assertNotNull(created.getFirstname()),
-                () -> assertNotNull(created.getCurrency())
-        );
+        Allure.step("обновление через restAssured", () -> {
+            User created = nifflerUserDataAssuded.updateUserAssured(userJson).as(User.class);
+
+            Assertions.assertAll(
+                    () -> assertNotNull(created.getUserName()),
+                    () -> assertNotNull(created.getFirstname()),
+                    () -> assertNotNull(created.getCurrency())
+            );
+
+        });
 
     }
-
-
 }

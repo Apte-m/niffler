@@ -1,17 +1,21 @@
 package niffler.api;
 
-import io.restassured.RestAssured;
+import io.qameta.allure.restassured.AllureRestAssured;
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import niffler.model.UserJson;
+import niffler.dto.User;
 
 public interface NifflerUserDataServiceAssured {
 
-    RequestSpecification spec = RestAssured.given()
-            .baseUri("http://127.0.0.1:8089")
-            .basePath("/updateUserInfo")
-            .contentType(ContentType.JSON);
+    RequestSpecification spec = new RequestSpecBuilder()
+            .setBaseUri("http://127.0.0.1:8089")
+            .setBasePath("/updateUserInfo")
+            .setContentType(ContentType.JSON)
+            .addFilter(new AllureRestAssured())
+            .build();
 
-   Response updateUserAssured (UserJson userJson);
+    //TODO  лучше  Response updateUserAssured (Object o);  и создать 4 интерфейса CRUD , но как пример норм
+    Response updateUserAssured(User userJson);
 }

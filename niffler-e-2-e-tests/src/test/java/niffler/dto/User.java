@@ -1,12 +1,11 @@
-package niffler.model;
+package niffler.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.Objects;
+import niffler.model.CurrencyValues;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserJson {
+public class User {
     @JsonProperty("username")
     private String userName;
 
@@ -18,7 +17,7 @@ public class UserJson {
     private CurrencyValues currency;
 
 
-    public UserJson() {
+    public User() {
     }
 
     public String getUserName() {

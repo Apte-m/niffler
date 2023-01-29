@@ -45,8 +45,9 @@ public class UsersExtension implements
 
         UserModel user = null;
         while (user == null) {
-            if (desiredUserType == User.UserType.ADMIN) {
+            if (desiredUserType == User.UserType.ADMIN ) {
                 user = USER_MODEL_ADMIN_QUEUE.poll();
+
             } else {
                 user = USER_MODEL_COMMON_QUEUE.poll();
             }

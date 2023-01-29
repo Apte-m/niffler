@@ -1,6 +1,6 @@
 package niffler.api;
 
-import niffler.model.SpendJson;
+import niffler.dto.Spend;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
@@ -17,7 +17,7 @@ public class NifflerSpendClient {
 
     private NifflerSpendService nifflerSpendService = retrofit.create(NifflerSpendService.class);
 
-    public SpendJson createSpend(SpendJson spend) throws Exception {
+    public Spend createSpend(Spend spend) throws Exception {
         return nifflerSpendService.addSpend(spend).execute().body();
     }
 

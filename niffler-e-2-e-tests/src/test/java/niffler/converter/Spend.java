@@ -1,6 +1,5 @@
 package niffler.converter;
 
-import niffler.converter.SpendConverter;
 import org.junit.jupiter.params.converter.ConvertWith;
 
 import java.lang.annotation.ElementType;

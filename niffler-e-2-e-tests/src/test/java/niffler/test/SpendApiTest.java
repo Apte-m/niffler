@@ -1,8 +1,7 @@
 package niffler.test;
 
 import niffler.api.NifflerSpendClient;
-import niffler.converter.Spend;
-import niffler.model.SpendJson;
+import niffler.dto.Spend;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -16,8 +15,8 @@ public class SpendApiTest {
             "data/spend1.json"
     })
     @ParameterizedTest
-    void addSpend(@Spend SpendJson spend) throws Exception {
-        SpendJson created = nsc.createSpend(spend);
+    void addSpend(@niffler.converter.Spend Spend spend) throws Exception {
+        Spend created = nsc.createSpend(spend);
         Assertions.assertNotNull(created.getId());
     }
 }

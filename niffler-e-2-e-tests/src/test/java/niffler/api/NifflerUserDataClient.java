@@ -1,6 +1,6 @@
 package niffler.api;
 
-import niffler.model.UserJson;
+import niffler.dto.User;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
@@ -18,7 +18,7 @@ public class NifflerUserDataClient {
 
     private NifflerUserDataService userDataService = retrofit.create(NifflerUserDataService.class);
 
-    public UserJson updateUser(UserJson user) throws Exception {
+    public User updateUser(User user) throws Exception {
         return userDataService.updateUserData(user).execute().body();
     }
 }

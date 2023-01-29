@@ -1,7 +1,7 @@
 package niffler.converter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import niffler.model.SpendJson;
+import niffler.dto.Spend;
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.params.converter.ArgumentConversionException;
 import org.junit.jupiter.params.converter.ArgumentConverter;
@@ -16,13 +16,14 @@ public class SpendConverter implements ArgumentConverter {
     private ObjectMapper om = new ObjectMapper();
 
     @Override
-    public SpendJson convert(Object source, ParameterContext context) throws ArgumentConversionException {
+    public Spend convert(Object source, ParameterContext context) throws ArgumentConversionException {
         if (!(source instanceof String)) {
             throw new ArgumentConversionException("work only for Strings!");
         }
         try (InputStream is = cl.getResourceAsStream((String) source);
              InputStreamReader isr = new InputStreamReader(is)) {
-            return om.readValue(isr, SpendJson.class);
+//            TODO   заменить на  object    и вернуть его , чтобы не плодить конвертеры
+            return om.readValue(isr, Spend.class);
         } catch (IOException e) {
             throw new ArgumentConversionException("Failed to convert", e);
         }
