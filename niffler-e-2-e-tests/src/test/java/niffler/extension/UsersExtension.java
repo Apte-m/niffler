@@ -1,7 +1,6 @@
-package niffler.jupiter;
+package niffler.extension;
 
 import io.qameta.allure.AllureId;
-import niffler.extension.User;
 import niffler.model.UserModel;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
@@ -10,11 +9,9 @@ import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Queue;
+import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.stream.Collectors;
 
 public class UsersExtension implements
         BeforeTestExecutionCallback,
@@ -34,37 +31,43 @@ public class UsersExtension implements
     }
 
     @Override
-    public void beforeTestExecution(ExtensionContext context) throws Exception {
+    public void beforeTestExecution(ExtensionContext context) {
         String id = getTestId(context);
-        User.UserType desiredUserType = Arrays.stream(context.getRequiredTestMethod()
+        List<User> desiredUserType = Arrays.stream(context.getRequiredTestMethod()
                         .getParameters())
                 .filter(p -> p.isAnnotationPresent(User.class))
                 .map(p -> p.getAnnotation(User.class))
-                .findFirst()
-                .orElseThrow()
-                .userType();
+                .collect(Collectors.toList());
 
-        UserModel user = null;
-        while (user == null) {
-            if (desiredUserType == User.UserType.ADMIN) {
-                user = USER_MODEL_ADMIN_QUEUE.poll();
+
+
+        Map<User.UserType, UserModel> map = new HashMap<>();
+        desiredUserType.forEach(v -> {
+            if (v.userType() == User.UserType.ADMIN) {
+                map.put(v.userType(), USER_MODEL_ADMIN_QUEUE.poll());
             } else {
-                user = USER_MODEL_COMMON_QUEUE.poll();
+                map.put(v.userType(), USER_MODEL_COMMON_QUEUE.poll());
             }
-        }
-        Objects.requireNonNull(user);
-        context.getStore(NAMESPACE).put(id, Map.of(desiredUserType, user));
+        });
+
+
+        Objects.requireNonNull(map);
+        context.getStore(NAMESPACE).put(id, map);
     }
 
     @Override
-    public void afterTestExecution(ExtensionContext context) throws Exception {
+    public void afterTestExecution(ExtensionContext context) {
         String id = getTestId(context);
-        Map<User.UserType, UserModel> map = context.getStore(NAMESPACE).get(id, Map.class);
-        if (map.containsKey(User.UserType.ADMIN)) {
+        final Map<User.UserType, UserModel> map = context.getStore(NAMESPACE).get(id, Map.class);
+
+
+        if (map.containsKey(User.UserType.ADMIN))
             USER_MODEL_ADMIN_QUEUE.add(map.get(User.UserType.ADMIN));
-        } else {
+
+        else
             USER_MODEL_COMMON_QUEUE.add(map.get(User.UserType.COMMON));
-        }
+
+
     }
 
     private String getTestId(ExtensionContext context) {
@@ -82,9 +85,9 @@ public class UsersExtension implements
     @Override
     public UserModel resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
         String id = getTestId(extensionContext);
+// TODO  нужно решить тут проблему
         return (UserModel) extensionContext.getStore(NAMESPACE).get(id, Map.class)
                 .values()
-                .iterator()
-                .next();
+                .iterator().next();
     }
 }

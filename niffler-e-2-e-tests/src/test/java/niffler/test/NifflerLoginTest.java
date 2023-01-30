@@ -7,6 +7,7 @@ import io.qameta.allure.AllureId;
 import niffler.extension.ScreenshotExtension;
 import niffler.extension.User;
 
+import niffler.extension.UsersExtension;
 import niffler.model.UserModel;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +16,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static niffler.extension.User.UserType.ADMIN;
 import static niffler.extension.User.UserType.COMMON;
 
-@ExtendWith({ScreenshotExtension.class, niffler.jupiter.UsersExtension.class})
+@ExtendWith({ScreenshotExtension.class, UsersExtension.class})
 public class NifflerLoginTest {
 
     @AllureId("1")
