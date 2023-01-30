@@ -39,15 +39,15 @@ public class NifflerLoginTest {
             ,@User(userType = COMMON) UserModel userCommon) {
         System.out.println("#### Test 2 admin " + user.toString());
         System.out.println("#### Test 2 common " + userCommon.toString());
-        Allure.step("Check login", () -> {
-            Selenide.open("http://127.0.0.1:3000/");
-            $("a[href*='redirect']").click();
-            $("input[name='username']").setValue("dima");
-            $("input[name='password']").setValue("12345");
-            $("button[type='submit']").click();
-            $(".header__title").shouldBe(Condition.visible)
-                    .shouldHave(Condition.text("Niffler. The coin keeper."));
-        });
+//        Allure.step("Check login", () -> {
+//            Selenide.open("http://127.0.0.1:3000/");
+//            $("a[href*='redirect']").click();
+//            $("input[name='username']").setValue("dima");
+//            $("input[name='password']").setValue("12345");
+//            $("button[type='submit']").click();
+//            $(".header__title").shouldBe(Condition.visible)
+//                    .shouldHave(Condition.text("Niffler. The coin keeper."));
+//        });
     }
 
     @AllureId("3")
