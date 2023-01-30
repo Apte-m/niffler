@@ -1,6 +1,7 @@
-package niffler.extension;
+package niffler.jupiter;
 
 import io.qameta.allure.AllureId;
+import niffler.extension.User;
 import niffler.model.UserModel;
 import org.junit.jupiter.api.extension.AfterTestExecutionCallback;
 import org.junit.jupiter.api.extension.BeforeTestExecutionCallback;
@@ -33,7 +34,7 @@ public class UsersExtension implements
     }
 
     @Override
-    public void beforeTestExecution(ExtensionContext context)  {
+    public void beforeTestExecution(ExtensionContext context) throws Exception {
         String id = getTestId(context);
         User.UserType desiredUserType = Arrays.stream(context.getRequiredTestMethod()
                         .getParameters())
@@ -45,9 +46,8 @@ public class UsersExtension implements
 
         UserModel user = null;
         while (user == null) {
-            if (desiredUserType == User.UserType.ADMIN ) {
+            if (desiredUserType == User.UserType.ADMIN) {
                 user = USER_MODEL_ADMIN_QUEUE.poll();
-
             } else {
                 user = USER_MODEL_COMMON_QUEUE.poll();
             }
@@ -57,7 +57,7 @@ public class UsersExtension implements
     }
 
     @Override
-    public void afterTestExecution(ExtensionContext context)  {
+    public void afterTestExecution(ExtensionContext context) throws Exception {
         String id = getTestId(context);
         Map<User.UserType, UserModel> map = context.getStore(NAMESPACE).get(id, Map.class);
         if (map.containsKey(User.UserType.ADMIN)) {
