@@ -40,7 +40,6 @@ public class UsersExtension implements
                 .collect(Collectors.toList());
 
 
-
         Map<User.UserType, UserModel> map = new HashMap<>();
         desiredUserType.forEach(v -> {
             if (v.userType() == User.UserType.ADMIN) {
@@ -85,9 +84,17 @@ public class UsersExtension implements
     @Override
     public UserModel resolveParameter(ParameterContext parameterContext, ExtensionContext extensionContext) throws ParameterResolutionException {
         String id = getTestId(extensionContext);
-// TODO  нужно решить тут проблему
+
+//        Map<User.UserType, UserModel> map = extensionContext.getStore(NAMESPACE).get(id, Map.class);
+//        return (UserModel) extensionContext.getStore(NAMESPACE).get(id, Map.class)
+//                .values()
+//                .iterator().next();
+
+
         return (UserModel) extensionContext.getStore(NAMESPACE).get(id, Map.class)
-                .values()
-                .iterator().next();
+                .get(parameterContext.getParameter().getDeclaredAnnotation(User.class).userType());
+
+
     }
 }
+
