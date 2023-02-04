@@ -1,6 +1,17 @@
 {
-  "currency": "KZT",
-  "firstname": "artem",
-  "surname": "odintso",
-  "username": "artem"
+  "user": [
+    {
+      "currency": "KZT",
+      "firstname": "artem",
+      "surname": "odintso",
+      "username": "artem"
+    },
+    {
+      "currency": "RUB",
+      "firstname": "grisha",
+      "surname": "popov",
+      "username": "grisha"
+    }
+  ]
 }
+

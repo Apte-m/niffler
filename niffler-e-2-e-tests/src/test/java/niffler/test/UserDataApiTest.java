@@ -4,10 +4,17 @@ import io.qameta.allure.Allure;
 import niffler.api.NifflerUserDataAssuded;
 import niffler.api.NifflerUserDataClient;
 import niffler.converter.UserData;
+import niffler.converter.UsersData;
+import niffler.dto.ResponseUsers;
 import niffler.dto.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -19,7 +26,7 @@ public class UserDataApiTest {
 
     @ValueSource(strings = {
             "data/userOne.json",
-            "data/userTwo.json"
+            "data/userThree.json"
     })
     @ParameterizedTest
     void userUpdateData(@UserData User userJson)  {
@@ -36,23 +43,19 @@ public class UserDataApiTest {
 
     }
 
-    @ValueSource(strings = {
-            "data/userOne.json",
-            "data/userTwo.json"
-    })
+    @ValueSource(strings = {"data/userTwo.json"})
     @ParameterizedTest
-    void userUpdateDataRestAssured(@UserData User userJson) {
+    void userUpdateDataRestAssured(@UsersData ResponseUsers userJson) {
 
-        Allure.step("обновление через restAssured", () -> {
-            User created = nifflerUserDataAssuded.updateUserAssured(userJson).as(User.class);
-
-            Assertions.assertAll(
-                    () -> assertNotNull(created.getUserName()),
-                    () -> assertNotNull(created.getFirstname()),
-                    () -> assertNotNull(created.getCurrency())
+      userJson.getUser().stream().forEach( v -> {
+          nifflerUserDataAssuded.updateUserAssured(v).as(User.class);
+          Assertions.assertAll(
+                    () -> assertNotNull(v.getUserName()),
+                    () -> assertNotNull(v.getFirstname()),
+                    () -> assertNotNull(v.getCurrency())
             );
+      });
 
-        });
 
     }
 }

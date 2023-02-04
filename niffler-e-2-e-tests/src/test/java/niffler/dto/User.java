@@ -52,5 +52,13 @@ public class User {
         this.currency = currency;
     }
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", surname='" + surname + '\'' +
+                ", currency=" + currency +
+                '}';
+    }
 }
