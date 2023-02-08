@@ -1,6 +1,4 @@
-package niffler.jupiter;
-
-import org.junit.jupiter.api.extension.ExtendWith;
+package niffler.jupiter.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
