@@ -30,6 +30,8 @@ public class SpendingTable extends BaseComponent<SpendingTable> {
         return this;
     }
 
+
+
     public SpendingTable addSpending() {
         return this;
     }

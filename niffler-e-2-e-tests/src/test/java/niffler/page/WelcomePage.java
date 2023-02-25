@@ -5,13 +5,17 @@ import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
+import static niffler.condition.PhotoCondition.image;
+
 
 public class WelcomePage extends BasePage<WelcomePage> {
 
     public static final String URL = CFG.frontUrl();
 
-    private final SelenideElement loginButton = $("a[href*='redirect']");
+    private final SelenideElement loginButton = $("#root > div > div.main-page__container > div > img");
     private final SelenideElement registerButton = $("a[href*='register']");
+    private final SelenideElement body = $x("/html/body");
 
     @Step("Redirect to login page")
     public LoginPage doLogin() {
@@ -31,5 +35,10 @@ public class WelcomePage extends BasePage<WelcomePage> {
         loginButton.should(visible);
         registerButton.should(visible);
         return this;
+    }
+
+
+    public void checkImagePage() {
+        body.shouldHave(image("yourImage.png"));
     }
 }

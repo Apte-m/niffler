@@ -16,6 +16,7 @@ public class AllureAppender extends StdoutLogger {
     private final AttachmentProcessor<AttachmentData> processor = new DefaultAttachmentProcessor();
     private final String sqlTemplatePath = "sql-query.ftl";
 
+
     @Override
     public void logSQL(int connectionId, String now, long elapsed, Category category,
                        String prepared, String sql, String url) {
@@ -28,6 +29,8 @@ public class AllureAppender extends StdoutLogger {
             processor.addAttachment(attachment, new FreemarkerAttachmentRenderer(sqlTemplatePath));
         }
     }
+
+
 
     @Override
     public void logException(Exception e) {
