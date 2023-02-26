@@ -5,11 +5,13 @@ import io.qameta.allure.attachment.AttachmentData;
 public class APIRequestAttachment implements AttachmentData {
 
     private final String preparedStatement;
+    private final String name;
 ;
 
-    public APIRequestAttachment( String preparedStatement) {
+    public APIRequestAttachment(String preparedStatement,String name) {
 
         this.preparedStatement = preparedStatement;
+        this.name = name;
 
     }
 
@@ -17,10 +19,13 @@ public class APIRequestAttachment implements AttachmentData {
         return preparedStatement;
     }
 
-
-
     @Override
     public String getName() {
-        return "XSRF-TOKEN";
+        return name;
     }
+
+
+
+
+
 }

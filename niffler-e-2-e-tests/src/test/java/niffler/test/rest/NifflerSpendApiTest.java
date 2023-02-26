@@ -2,10 +2,7 @@ package niffler.test.rest;
 
 import io.qameta.allure.AllureId;
 import niffler.api.NifflerSpendClient;
-import niffler.jupiter.annotation.GenerateCategory;
-import niffler.jupiter.annotation.GenerateUser;
-import niffler.jupiter.annotation.Spend;
-import niffler.jupiter.annotation.User;
+import niffler.jupiter.annotation.*;
 import niffler.model.SpendJson;
 import niffler.model.UserJson;
 import org.junit.jupiter.api.Assertions;

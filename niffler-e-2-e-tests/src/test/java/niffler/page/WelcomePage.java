@@ -38,7 +38,7 @@ public class WelcomePage extends BasePage<WelcomePage> {
     }
 
 
-    public void checkImagePage() {
-        body.shouldHave(image("yourImage.png"));
+    public void checkImagePage(String path) {
+        body.shouldHave(image(path));
     }
 }

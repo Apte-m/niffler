@@ -1,7 +1,7 @@
 package niffler.api.interceptops;
 
-import io.qameta.allure.Allure;
 import niffler.api.context.CookieHolder;
+import niffler.data.logging.APIRequestAttachment;
 import niffler.data.logging.XsrfTokenAttachmentProcessor;
 import okhttp3.Interceptor;
 import okhttp3.Response;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ReceivedCookieRespInterceptor implements Interceptor {
 
-
+    XsrfTokenAttachmentProcessor xsrfTokenAttachmentProcessor = new XsrfTokenAttachmentProcessor();
 
     @Override
     public Response intercept(Chain chain) throws IOException {
@@ -29,11 +29,8 @@ public class ReceivedCookieRespInterceptor implements Interceptor {
                     if (keyValuePair.length == 2) {
                         storedCookies.add(keyValuePair[0] + "=" + keyValuePair[1]);
 
-
-
-//                        Allure.addAttachment("XSRF-TOKEN", keyValuePair[1]);
-
-
+                        APIRequestAttachment attachmentData = new APIRequestAttachment(keyValuePair[1], keyValuePair[0]);
+                        xsrfTokenAttachmentProcessor.addAttachment(attachmentData, null);
 
                     }
                 }
