@@ -16,7 +16,7 @@ public class DateUtils {
         try {
             return sdf.parse(dateAsString);
         } catch (ParseException e) {
-            throw new RuntimeException();
+            throw new RuntimeException("Unable to parse date: " + dateAsString, e);
         }
     }
 }
