@@ -38,6 +38,7 @@ public class SpendCondition {
 
             @Override
             public boolean test(List<WebElement> elements) {
+
                 if (elements.size() != expectedSpends.length) {
                     return false;
                 }

@@ -46,4 +46,7 @@ public class SpendingTest extends BaseTest {
                 .deleteSpending()
                 .checkTable();
     }
+
+
+
 }

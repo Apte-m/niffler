@@ -21,4 +21,6 @@ public @interface GenerateUser {
     String password() default "";
 
     GenerateCategory[] categories() default {};
+    GenerationSpend [] spend() default {};
+
 }

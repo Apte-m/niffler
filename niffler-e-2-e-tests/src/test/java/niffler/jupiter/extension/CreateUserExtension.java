@@ -5,12 +5,11 @@ import niffler.api.NifflerAuthClient;
 import niffler.api.NifflerSpendClient;
 import niffler.api.NifflerUserdataClient;
 import niffler.config.Config;
-import niffler.jupiter.annotation.ApiLogin;
-import niffler.jupiter.annotation.GenerateCategory;
-import niffler.jupiter.annotation.GenerateUser;
-import niffler.jupiter.annotation.User;
+import niffler.jupiter.annotation.*;
 import niffler.model.CategoryJson;
+import niffler.model.SpendJson;
 import niffler.model.UserJson;
+import niffler.utils.DateUtils;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.api.extension.ParameterContext;
@@ -18,11 +17,7 @@ import org.junit.jupiter.api.extension.ParameterResolutionException;
 import org.junit.jupiter.api.extension.ParameterResolver;
 import retrofit2.Response;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static niffler.utils.DataUtils.generateRandomPassword;
 import static niffler.utils.DataUtils.generateRandomUsername;
@@ -62,7 +57,27 @@ public class CreateUserExtension implements BeforeEachCallback, ParameterResolve
                     createdCategories.add(spendClient.createCategory(cj));
                 }
             }
+
+            GenerationSpend[] spends = entry.getValue().spend();
+            List<SpendJson> creatSpends = new ArrayList<>();
+            if (spends != null && spends.length > 0) {
+                for (GenerationSpend spend : spends) {
+                    SpendJson sj = new SpendJson();
+                    sj.setAmount(spend.amount());
+                    sj.setUsername(username);
+                    sj.setSpendDate(DateUtils.convertDate(spend.spendDate()));
+                    sj.setCategory(spend.category());
+                    sj.setCurrency(spend.currency());
+                    sj.setDescription(spend.description());
+
+                    creatSpends.add(spendClient.createSpend(sj));
+                }
+            }
+
+
             userJson.setCategoryJsons(createdCategories);
+            userJson.setSpendJsons(creatSpends);
+
             context.getStore(entry.getKey().getNamespace()).put(testId, userJson);
         }
     }
