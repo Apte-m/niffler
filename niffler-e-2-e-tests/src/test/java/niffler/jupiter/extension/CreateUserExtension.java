@@ -64,7 +64,8 @@ public class CreateUserExtension implements BeforeEachCallback, ParameterResolve
                 for (GenerationSpend spend : spends) {
                     SpendJson sj = new SpendJson();
                     sj.setAmount(spend.amount());
-                    sj.setSpendDate(DateUtils.fromString(spend.spendDate()));
+                    sj.setUsername(username);
+                    sj.setSpendDate(DateUtils.convertDate(spend.spendDate()));
                     sj.setCategory(spend.category());
                     sj.setCurrency(spend.currency());
                     sj.setDescription(spend.description());

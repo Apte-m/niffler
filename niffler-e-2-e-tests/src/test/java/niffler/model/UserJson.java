@@ -84,6 +84,9 @@ public class UserJson {
     public List<CategoryJson> getCategoryJsons() {
         return categoryJsons;
     }
+    public List<SpendJson> getSpendJsons() {
+        return spendJsons;
+    }
 
     public void setCategoryJsons(List<CategoryJson> categoryJsons) {
         this.categoryJsons = categoryJsons;

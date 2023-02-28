@@ -103,14 +103,14 @@ public class SpendJson {
     @Override
     public String toString() {
         return "SpendJson{" +
-                "id=" + id +
+//                "id=" + id +
                 ", spendDate=" + spendDate +
                 ", category='" + category + '\'' +
                 ", currency=" + currency +
                 ", amount=" + amount +
                 ", description='" + description + '\'' +
                 ", username='" + username + '\'' +
-                ", spendDetails=" + spendDetails +
+//                ", spendDetails=" + spendDetails +
                 '}';
     }
 }
